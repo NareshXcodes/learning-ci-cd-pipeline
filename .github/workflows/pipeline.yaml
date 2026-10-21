@@ -1,0 +1,26 @@
+name : nodejs application using AWS
+
+on :
+  push:
+    branches:
+      - main
+
+jobs :
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name : Checkout Code
+        uses : actions/checkout@v4
+
+      - name : Deploy Via SSH
+        uses : appleboy/ssh-action@v1.0.3
+        with :
+          hosts : ${{ secrets.SSH_HOST }}
+          username : root
+          key : ${{ secrets.SHH_KEY }}
+          script : |
+            cd /home/ubuntu/learning-ci-cd-pipeline
+            git pull
+            docker compose up -d --build
+
