@@ -17,8 +17,9 @@ jobs :
         uses : appleboy/ssh-action@v1.0.3
         with :
           hosts : ${{ secrets.SSH_HOST }}
-          username : root
+          username : ubuntu
           key : ${{ secrets.SHH_KEY }}
+          port : 22
           script : |
             cd /home/ubuntu/learning-ci-cd-pipeline
             git pull
